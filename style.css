@@ -73,14 +73,14 @@ body {
     margin-left: 8px;
   }
   
-  /* kol orai kraunasi, norime paslėpti default orus */
+  
   .weather.loading { 
     visibility: hidden;
     max-height: 20px;
     position: relative;
   }
   
-  /* pranešame, kad orai kraunasi */
+  
   .weather.loading:after {
     visibility: visible;
     content: "Loading...";
