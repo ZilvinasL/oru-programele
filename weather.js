@@ -1,27 +1,27 @@
-let weather = { // sukuriame objektą, kuris talpins mūsų funkcijas ir API
+let weather = { 
     apiKey: "0aa8679f7f4cfb9af5b36c2935c1a05d",
     fetchWeather: function (city) {
-        fetch( // paimame miesto orus su šiuo URL: funkcijos parametras city dedamas į URL, taikome mūsų API raktą
+        fetch( 
           "https://api.openweathermap.org/data/2.5/weather?q=" +
             city +
             "&units=metric&appid=" +
             this.apiKey
         )
-          .then((response) => { // po to, kai gavome miesto orus, norime, kad sugeneruotų JSON rezultatą 
-            if (!response.ok) { // jei nepavyko gauti atsakymo, rodome klaidos pranešimą
+          .then((response) => { 
+            if (!response.ok) { 
               alert("No weather found.");
               throw new Error("No weather found.");
             }
-            return response.json(); // sugeneruojame JSON rezultatą
+            return response.json(); 
           })
-          .then((data) => this.displayWeather(data)); // spausdiname orus į naršyklę panaudodami displayWeather funkciją; mums būtina naudoti this, kadangi naudojame funkciją esančią objekto viduje.
+          .then((data) => this.displayWeather(data)); 
       },
-      displayWeather: function (data) { // funkcija, kuri priima miesto orų duomenis ir spausdina į naršyklę
-        const { name } = data; // priskiriame miesto pavadinimą
-        const { icon, description } = data.weather[0]; // priskiriame debesuotumo ikonėlę ir aprašymą
-        const { temp, humidity } = data.main; // priskiriame temperatūrą ir drėgnumą
-        const { speed } = data.wind; // priskiriame vėjo greitį
-        // surandame HTML elementus ir keičiame jų duomenis:
+      displayWeather: function (data) { 
+        const { name } = data; 
+        const { icon, description } = data.weather[0]; 
+        const { temp, humidity } = data.main;
+        const { speed } = data.wind;
+       
         document.querySelector(".city").innerText = "Weather in " + name;
         document.querySelector(".icon").src =
           "https://openweathermap.org/img/wn/" + icon + ".png";
@@ -32,16 +32,16 @@ let weather = { // sukuriame objektą, kuris talpins mūsų funkcijas ir API
           "Humidity: " + humidity + "%";
         document.querySelector(".wind").innerText =
           "Wind: " + Math.round(speed) + " km/h";
-        document.querySelector(".weather").classList.remove("loading"); // gavus orų duomenis, galime paslėpti loading
+        document.querySelector(".weather").classList.remove("loading"); 
         document.body.style.backgroundImage =
-          "url('https://source.unsplash.com/1600x900/?" + name + "')"; // pasirinkto miesto nuotrauka
+          "url('https://source.unsplash.com/1600x900/?" + name + "')"; 
       },
       search: function () {
-        this.fetchWeather(document.querySelector(".search-bar").value); // paimame miestą, kurį paieškos laukelyje įvedė vartotojas ir priskiriame jį kaip parametrą fetchWeather funkcijai ir ją vykdome.
+        this.fetchWeather(document.querySelector(".search-bar").value); 
       }
     };
 
-    document.querySelector(".search button").addEventListener("click", function () { // laukiame kada bus paspaustas paieškos mygtukas. Jį paspaudus, vykdome search funkciją esančią weather objekte
+    document.querySelector(".search button").addEventListener("click", function () { 
       weather.search();
     });
     
